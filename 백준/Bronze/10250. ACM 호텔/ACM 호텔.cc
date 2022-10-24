@@ -4,15 +4,12 @@ using namespace std;
 
 int main()
 {
-    ios_base ::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
     int T;
     int H, W, N;
-    cin >> T;
+    scanf("%d", &T);
     for (int i = 0; i < T; i++)
     {
-        cin >> H >> W >> N;
+        scanf("%d %d %d", &H, &W, &N);
         int y = 0, x = 1;
         while (N - H > 0)   
         {
@@ -20,7 +17,7 @@ int main()
             x++;
         }
         y = N;
-        cout << y*100 + x << "\n";
+        printf("%d\n", y*100 + x);
         
     }
     return 0;
