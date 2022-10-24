@@ -4,6 +4,9 @@ using namespace std;
 
 int main()
 {
+    ios_base ::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     int T;
     int H, W, N;
     cin >> T;
@@ -17,11 +20,7 @@ int main()
             x++;
         }
         y = N;
-        cout << y;
-        if (x < 10)
-            cout << '0' << x << "\n";
-        else
-            cout << x << "\n";
+        cout << y*100 + x << "\n";
         
     }
     return 0;
