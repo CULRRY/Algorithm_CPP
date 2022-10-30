@@ -20,7 +20,7 @@ int main()
         if (v[i] == 0)
             continue;
         
-        for (int j = i*2; j <= N; j += i)
+        for (int j = i*i; j <= N; j += i)
         {
             v[j] = 0;   
         }
