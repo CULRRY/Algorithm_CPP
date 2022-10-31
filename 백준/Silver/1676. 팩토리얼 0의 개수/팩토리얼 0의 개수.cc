@@ -8,35 +8,25 @@ int main()
 
     int N;
     cin >> N;
-    
-    long long num = 1;
-    int count = 0;
+
+    int div2 = 0, div5 = 0;
     for (int i = 1; i <= N; i++)
     {
-        num = (num * i)%1000000000;
-        long long tmp = num;
-        int numOfZero = 0;
-        while (tmp != 0)
+        int tmp = i;
+        while ((tmp % 2) == 0)
         {
-            if (tmp % 10 == 0)
-            {
-                count++;
-                numOfZero++;
-            }
-            else
-            {
-                break;
-            }
-            tmp /= 10;
+            tmp /= 2;
+            div2++;
         }
-        
-        if (numOfZero != 0)
-            num /= (int)pow(10, numOfZero);
-        
-
+        tmp = i;
+        while ((tmp % 5) == 0)
+        {
+            tmp /= 5;
+            div5++;
+        }
     }
 
-    cout << count;
+    cout << std::min(div2, div5);
 
     return 0;
 }
