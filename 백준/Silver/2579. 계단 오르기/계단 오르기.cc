@@ -15,22 +15,18 @@ int main()
     }
 
     vector<int> dp(N + 1);
-    vector<int> count(N + 1);
     dp[0] = score[0]; dp[1] = score[1]; dp[2] = score[1] + score[2];
-    count[0] = 0; count[1] = 1; count[2] = 2;
     for (int i = 3; i <= N; i++)
     {
         int max = 0;
         if (dp[i-2] + score[i] > max)
         {
             max = dp[i-2] + score[i];
-            count[i] = 1;
         }
 
         if (dp[i-3] + score[i-1] + score[i] > max)
         {
             max = dp[i-3] + score[i-1] + score[i];
-            count[i] = 2;
         }
         dp[i] = max;
     }
