@@ -26,12 +26,6 @@ int main()
             max = dp[i-2] + score[i];
             count[i] = 1;
         }
-        
-        if (dp[i-1] + score[i] > max && count[i-1] < 2)
-        {
-            max = dp[i - 1] + score[i];
-            count[i] = count[i-1] + 1;
-        }
 
         if (dp[i-3] + score[i-1] + score[i] > max)
         {
