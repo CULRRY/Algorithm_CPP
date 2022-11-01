@@ -13,17 +13,21 @@ int main()
     for (int i = 4; i <= N; i++)
     {
         
-        vector<int> nextDp;
+        int min = 9999999;
         if (i % 3 == 0)
         {
-            nextDp.push_back(dp[i / 3] + 1);
+            if (min > dp[i / 3])
+                min = dp[i / 3];
         }
         if (i % 2 == 0)
         {
-            nextDp.push_back(dp[i / 2] + 1);
+            if (min > dp[i / 2])
+                min = dp[i / 2];
         }
-        nextDp.push_back(dp[i - 1] + 1);
-        dp[i] = *min_element(nextDp.begin(), nextDp.end());
+        if (min > dp[i - 1])
+            min = dp[i - 1];
+        
+        dp[i] = min + 1;
     }
 
     cout << dp[N];
