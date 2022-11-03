@@ -2,7 +2,7 @@
 <h1> Algorithm C++
 <h5> 알고리즘 문제해결 레포지토리
 
-<h3><a href = "https://culrry.notion.site/PS_Archive-93662b3bdec54b45b31f5482e514ea99)">👉내가 푼 문제👈
+<h3><a href = "https://culrry.notion.site/PS_Archive-93662b3bdec54b45b31f5482e514ea99">👉내가 푼 문제👈
 
 <br>
 <br>
