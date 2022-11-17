@@ -13,27 +13,21 @@ int main()
 
     for (int i = 1; i <= N; i++)
     {
-        int sum = 0;
         for (int j = 1; j <= N; j++)
         {
             int x;
             cin >> x;
-            sum += x;
-            v[i][j] = sum;
+            v[i][j] = v[i][j-1] + v[i-1][j] + x - v[i-1][j-1];
         }
     }
 
-    for (int i = 0; i < M; i++ )
+    for (int i = 0; i < M; i++)
     {
         int x1, y1, x2, y2;
         cin >> x1 >> y1 >> x2 >> y2;
-        int sum = 0;
+        
 
-        for (int j = x1; j <= x2; j++)
-        {
-            sum += v[j][y2] - v[j][y1 - 1];
-        }
-        cout << sum << "\n";
+        cout << v[x2][y2] - v[x1-1][y2] - v[x2][y1-1] + v[x1-1][y1-1] << "\n";
     }  
 
     return 0;
