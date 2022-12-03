@@ -16,13 +16,13 @@ void bfs(vector<vector<int>> &lab, const vector<Point> &virus)
     {
         Point now = q.front();
         q.pop();
-        lab[now.y][now.x] = 2;
 
         for (int i = 0; i < dir.size(); i++)
         {
             Point next = {now.y + dir[i].y, now.x + dir[i].x};
             if (next.x >= 0 && next.x < w && next.y >= 0 && next.y < h && lab[next.y][next.x] == 0)
             {
+                lab[next.y][next.x] = 2;
                 q.push(next);
             }
         }
