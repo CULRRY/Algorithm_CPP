@@ -59,31 +59,25 @@ void Spread(vector<vector<int>> &v, Point cleaner)
     int cnt = 0;
     while (cnt < t)
     {
+        tmp = v;
         for (int i = 0; i < r; i++)
         {
             for (int j = 0; j < c; j++)
             {
                 if (v[i][j] > 0)
                 {
-                    q.push({i, j});
-                }
-            }
-        }
-        tmp = v;
-        int sz = q.size();
-        for (int s = 0; s < sz; s++)
-        {
-            Point now = q.front();
-            q.pop();
-            int dust = v[now.y][now.x];
+                    Point now = {i, j};
+                    int dust = v[now.y][now.x];
 
-            for (int i = 0; i < dir.size(); i++)
-            {
-                Point next = {now.y + dir[i].y, now.x + dir[i].x};
-                if (next.x >= 0 && next.x < c && next.y >= 0 && next.y < r && v[next.y][next.x] != -1)
-                {
-                    tmp[now.y][now.x] -= dust / 5;
-                    tmp[next.y][next.x] += dust / 5;
+                    for (int i = 0; i < dir.size(); i++)
+                    {
+                        Point next = {now.y + dir[i].y, now.x + dir[i].x};
+                        if (next.x >= 0 && next.x < c && next.y >= 0 && next.y < r && v[next.y][next.x] != -1)
+                        {
+                            tmp[now.y][now.x] -= dust / 5;
+                            tmp[next.y][next.x] += dust / 5;
+                        }
+                    }
                 }
             }
         }
