@@ -7,9 +7,10 @@ struct Node
 
 constexpr int INF = 987654321;
 vector<vector<Node>> adj;
+vector<vector<Node>> adjr;
 int n, m, x;
 
-void Dijikstra(vector<int>& cost, int start)
+void Dijikstra(const vector<vector<Node>>& adj, vector<int>& cost, int start)
 {
     priority_queue<pair<int, int>> pq;
     pq.push({0, start});
@@ -43,26 +44,26 @@ int main()
 
     cin >> n >> m >> x;
     adj.assign(n+1, vector<Node>());
-
+    adjr.assign(n+1, vector<Node>());
     for (int i = 0; i < m; i++)
     {
         int s, e, w;
         cin >> s >> e >> w;
         adj[s].push_back({w, e});
+        adjr[e].push_back({w, s});
     }
 
     vector<int> time(n+1, INF);
-    Dijikstra(time, x);
+    vector<int> timer(n+1, INF);
+    Dijikstra(adj, time, x);
+    Dijikstra(adjr, timer, x);
+    
+    int max = 0;
     for (int i = 1; i <= n; i++)
     {
-        if (i == x)
-            continue;
-        vector<int> cost(n+1, INF);
-        Dijikstra(cost, i);
-        time[i] += cost[x];
+        max = std::max(time[i] + timer[i], max);
     }
-
-    cout << *max_element(time.begin()+1, time.end());
+    cout << max;
 
 
     return 0;
