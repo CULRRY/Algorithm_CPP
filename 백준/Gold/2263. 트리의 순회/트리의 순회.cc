@@ -3,43 +3,22 @@ using namespace std;
 int n;
 vector<int> inOrder;
 vector<int> postOrder;
-struct Node
-{
-    int n, left, right;
-};
-vector<Node> tree;
+vector<int> in_index;
 
-void GenerateTree(int root, int num, int startIn, int startPost)
+void preOrder(int si, int ei, int sp, int ep)
 {
-
-    if (root == -1)
+    if (si > ei || sp > ep)
         return;
-    int cnt = 0;
-    for (int i = startIn; i <= startIn + num; i++)
-    {
-        if (inOrder[i] == root)
-            break;
-        cnt++;
-    }
-
-    if (cnt != num - 1)
-        tree[root].right = postOrder[startPost + num - 2];
     
-    if (cnt != 0)
-        tree[root].left = postOrder[startPost + cnt - 1];
+    int root = postOrder[ep];
+    cout << root << " ";
 
-    GenerateTree(tree[root].right, num - cnt - 1, startIn + cnt + 1, startPost + cnt);
-    GenerateTree(tree[root].left, cnt, startIn, startPost);
-}
+    int cnt = in_index[root];
 
-void preOrder(int root)
-{
-    if (root == -1)
-        return;
+    int l_size = cnt - si;
 
-    cout << tree[root].n << " ";
-    preOrder(tree[root].left);
-    preOrder(tree[root].right);
+    preOrder(si, si + l_size-1, sp, sp + l_size-1);
+    preOrder(si + l_size + 1, ei, sp + l_size, ep - 1);
 }
 
 int main()
@@ -49,8 +28,8 @@ int main()
 
     cin >> n;
     inOrder.assign(n+1, -1);
+    in_index.assign(n+1, -1);
     postOrder.assign(n+1, -1);
-    tree.assign(n+1, {-1, -1, -1});
 
     for (int i = 1; i <= n; i++)
     {
@@ -61,14 +40,10 @@ int main()
         cin >> postOrder[i];
     }
 
-
     for (int i = 1; i <= n; i++)
     {
-        tree[i] = {i, -1, -1};
+        in_index[inOrder[i]] = i;
     }
-
-    GenerateTree(postOrder.back(), n, 1, 1);
-
-    preOrder(postOrder.back());
+    preOrder(1, n, 1, n);
     return 0;
 }
