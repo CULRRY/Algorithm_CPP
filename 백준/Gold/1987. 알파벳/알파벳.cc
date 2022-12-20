@@ -18,30 +18,24 @@ bool isBound(int x, int y)
 }
 
 int maxLen = 0;
-vector<vector<bool>> visited;
+vector<bool> visited(26, false);
 void Alphabet(const vvc& board, int x, int y, int n)
 {
 
-    if (memo[board[y][x] - 'A'] == 1)
-        return;
-
-    if (n + 1> maxLen)
-    {
-        maxLen = n + 1;
-    }
+    maxLen = std::max(maxLen, n);
 
     for (int i = 0; i < 4; i++)
     {
         int nx = x + dx[i];
         int ny = y + dy[i];
-
-        if (isBound(nx, ny) && !visited[ny][nx])
+        if (!isBound(nx, ny))
+            continue;
+        int next = (int)(board[ny][nx] - 'A');
+        if (!visited[next])
         {
-            visited[ny][nx] = true;
-            memo[board[y][x] - 'A'] = 1;
+            visited[next] = true;
             Alphabet(board, nx, ny, n+1);
-            visited[ny][nx] = false;
-            memo[board[y][x] - 'A'] = 0;
+            visited[next] = false;
         }
 
     }
@@ -56,7 +50,6 @@ int main()
     cin >> r >> c;
 
     vvc board(r+1, vector<char>(c+1));
-    visited.assign(r+1, vector<bool>(c+1, false));
     for (int i = 1; i <= r; i++)
     {
         for (int j = 1; j <= c; j++)
@@ -65,7 +58,8 @@ int main()
         }
     }
 
-    Alphabet(board, 1, 1, 0);
+    visited[board[1][1] - 'A'] = true;
+    Alphabet(board, 1, 1, 1);
 
     cout << maxLen;
 
