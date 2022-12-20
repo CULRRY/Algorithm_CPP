@@ -34,27 +34,22 @@ int main()
         cin >> seq[i];
     }
 
-    vector<vector<int>> dp(n + 1, vector<int>(n + 1, 1));
-    for (int d = 1; d < n; d++)
+    vector<vector<bool>> dp(n + 1, vector<bool>(n + 1, 0));
+    for (int i = 1; i <= n; i++)
+    {
+        dp[i][i] = 1;
+        if (seq[i] == seq[i+1])
+            dp[i][i+1] = 1;
+    }
+
+    for (int d = 2; d < n; d++)
     {
         for (int i = 1; i <= n - d; i++)
         {
             int j = i + d;
-            if (dp[i][j - 1] + dp[i + 1][j] == 1)
+            if (seq[i] == seq[j])
             {
-                dp[i][j] = 0;
-            }
-            else if (dp[i][j - 1] + dp[i + 1][j] == 0)
-            {
-
-                dp[i][j] = CheckPelindrome(i, j);
-            }
-            else
-            {
-                if (seq[i] == seq[j])
-                    dp[i][j] = 1;
-                else
-                    dp[i][j] = 0;
+                dp[i][j] = dp[i + 1][j - 1];
             }
         }
     }
@@ -68,7 +63,6 @@ int main()
 
         cout << dp[s][e] << "\n";
     }
-
 
     return 0;
 }
