@@ -21,21 +21,9 @@ int main()
     vector<ll> solve(3);
     for (int i = 0; i < n; i++)
     {
-        int left = 0, right = n-1;
+        int left = i + 1, right = n-1;
         while (left < right)
         {
-
-            if (right == i)
-            {
-                right--;
-                continue;
-            }
-
-            if (left == i)
-            {
-                left++;
-                continue;
-            }
             ll sum = v[left] + v[right] + v[i];
             ll absum = std::abs(v[left] + v[right] + v[i]);
 
