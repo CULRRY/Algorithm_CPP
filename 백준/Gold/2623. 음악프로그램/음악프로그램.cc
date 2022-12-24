@@ -6,36 +6,6 @@
 using namespace std;
 
 int n, m;
-vector<bool> visited;
-vector<bool> finished;
-
-bool isCycle = false;
-
-void dfs(vector<vector<int>>& adj, int idx)
-{
-    visited[idx] = true;
-
-    for (int i = 1; i <= n; i++)
-    {
-        if (adj[idx][i] == 0)
-            continue;
-
-        if (visited[i])
-        {
-            if(!finished[i])
-            {
-                isCycle = true;
-            }
-
-            continue;
-        }
-        
-        dfs(adj, i);
-    }
-
-    finished[idx] = true;
-}
-
 
 int main()
 {
@@ -46,8 +16,6 @@ int main()
 
     vector<vector<int>> adj(n + 1, vector<int>(n + 1, 0));
     vector<int> inDegree(n + 1, 0);
-    finished.assign(n+1, false);
-    visited.assign(n+1, false);
 
     for (int i = 0; i < m; i++)
     {
@@ -65,31 +33,20 @@ int main()
         }
     }
 
-    for (int i = 1; i <= n; i++)
-    {
-        if (!finished[i])
-            dfs(adj, i);
-    }
-
-    if (isCycle)
-    {
-        cout << 0;
-        return 0;
-    }
 
     queue<int> q;
-    vector<int> result(n);
+    vector<int> result;
     for (int i = 1; i <= n; i++)
     {
         if (inDegree[i] == 0)
             q.push(i);
     }
 
-    for (int i = 0; i < n; i++)
+    while(!q.empty())
     {
         int now = q.front();
         q.pop();
-        result[i] = now;
+        result.push_back(now);
 
         for (int j = 1; j <= n; j++)
         {
@@ -103,6 +60,11 @@ int main()
         }
     }
 
+    if (result.size() != n)
+    {   
+        cout << 0;
+        return 0;
+    }
     for (int i : result)
     {
         cout << i << "\n";
