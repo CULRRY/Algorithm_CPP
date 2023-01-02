@@ -13,7 +13,7 @@ int main()
     cin >> n;
     long long sum = 0;
     
-    for (int i = 0; i <= 9; i++)
+    for (int i = 1; i <= 9; i++)
     {
         dp[1][i][1 << i] = 1;
     }
@@ -40,7 +40,7 @@ int main()
         }
     }
 
-    for (int i = 1; i <= 9; i++)
+    for (int i = 0; i <= 9; i++)
     {
         sum = (sum + dp[n][i][(1 << 10) - 1]) % MOD;
     }
