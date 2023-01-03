@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
-#define FASTIO ios_base::sync_with_stdio(false); cin.tie(0);
+#define FASTIO                        \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(0);
 
 using namespace std;
 
@@ -11,7 +13,7 @@ int main()
 
     int n;
     cin >> n;
-    vector<vector<int>> w(n+1, vector<int>(n+1, 0));
+    vector<vector<int>> w(n + 1, vector<int>(n + 1, 0));
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
@@ -24,37 +26,29 @@ int main()
         }
     }
 
-    vector<vector<vector<int>>> dp(n, vector<vector<int>>(n, vector<int>(1 << n, INF)));
+    vector<vector<int>> dp(n, vector<int>(1 << n, INF));
 
-    for (int i = 0; i < n; i++)
+    dp[0][1] = 0;
+    for (int k = 0; k < (1 << n); k++)
     {
-        dp[i][i][1 << i] = 0;
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        for (int k = 0; k < (1 << n); k++)
+        for (int j = 0; j < n; j++)
         {
-            for (int j = 0; j < n; j++)
+            if ((k | 1 << j) == k)
+                continue;
+            int offset = k | 1 << j;
+            for (int p = 0; p < n; p++)
             {
-                if (i == j) continue;
-                if ((k | 1 << j) == k) continue;
-                int offset = k | 1 << j;
-                for (int p = 0; p < n; p++)
-                {
-                    
-                    dp[i][j][offset] = std::min(dp[i][p][k] + w[p][j], dp[i][j][offset]);
-                }
+
+                dp[j][offset] = std::min(dp[p][k] + w[p][j], dp[j][offset]);
             }
         }
     }
 
     int min = INF;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-            min = std::min(min, dp[i][j][(1 << n) - 1] + w[j][i]);
-    }
+
+    for (int j = 0; j < n; j++)
+        min = std::min(min, dp[j][(1 << n) - 1] + w[j][0]);
+
     cout << min;
     return 0;
 }
