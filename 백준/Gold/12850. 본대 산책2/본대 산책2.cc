@@ -62,13 +62,8 @@ int main()
 
     cin >> d;
     vector<vector<ull>> result(8, vector<ull>(8, 0));
-    for (int i = 0; i < 8; i++)
-    {
-        result[i][i] = 1;
-    }
-    result = multi(result, pow(matrix, d));
 
-    cout << result[0][0] % MOD;
+    cout << pow(matrix, d)[0][0] % MOD;
 
     return 0;
 }
