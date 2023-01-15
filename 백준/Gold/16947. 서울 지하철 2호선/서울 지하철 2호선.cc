@@ -6,47 +6,24 @@
 
 using namespace std;
 
-vector<int> parent;
 vector<int> trace;
 vector<int> visited;
 vector<bool> finished;
+vector<bool> cycle;
 int cnt = 1;
-bool findCycle = false;
 int n;
-int Find(int p)
-{
-    if (p == parent[p])
-        return p;
-    
-    return parent[p] = Find(parent[p]);
-}
-
-void Union(int p, int q)
-{
-    p = Find(p);
-    q = Find(q);
-
-    parent[q] = p;
-}
-
-bool Equal(int p, int q)
-{
-    return Find(p) == Find(q);
-}
 
 void Trace(int now, int dest)
 {
-    findCycle = true;
     while (true)
     {
+        cycle[now] = true;
         if (now == dest)
         {
             break;
         }
-        Union(now, trace[now]);
         now = trace[now];
     }
-    
 }
 
 void dfs(vector<vector<int>>& adj, int now)
@@ -60,6 +37,7 @@ void dfs(vector<vector<int>>& adj, int now)
             {
                 if (trace[now] == next)
                     continue;
+
                 Trace(now, next);
             }
             continue;
@@ -85,15 +63,16 @@ void bfs(vector<vector<int>>& adj, int now)
         {
             now = q.front();
             q.pop();
+            if (cycle[now] == true)
+            {
+                cout << cnt << " ";
+                return;
+            }
             for (int next : adj[now])
             {
                 if (discoverd[next] == true)
                     continue;
-                if (Find(now) == Find(next))
-                {
-                    cout << cnt << " ";
-                    return;
-                }
+
 
                 discoverd[next] = true;
                 q.push(next);
@@ -111,11 +90,10 @@ int main()
 
     cin >> n;
     vector<vector<int>> adj(n+1, vector<int>());
-    parent = vector<int>(n+1);
+    cycle = vector<bool>(n+1, false);
     trace = vector<int>(n+1, -1);
     visited = vector<int>(n+1, -1);
     finished = vector<bool>(n+1, false);
-    std::iota(parent.begin(), parent.end(), 0);
 
 
     for (int i = 0; i < n; i++)
