@@ -27,32 +27,13 @@ bool isBound(int y, int x)
 
 void Move(FireBall &f, int y, int x, Board &board)
 {
-    int ny = y, nx = x;
-    for (int i = 0; i < f.s; i++)
-    {
-        ny = ny + dy[f.d];
-        nx = nx + dx[f.d];
-        if (ny > N)
-        {
-            ny = 1;
-        }
-        
-        if (ny < 1)
-        {
-            ny = N;
-        }
-
-        if (nx > N)
-        {
-            nx = 1;
-        }
-        
-        if (nx < 1)
-        {
-            nx = N;
-        }
-
-    }
+    int ny = y + f.s * dy[f.d], nx = x + f.s * dx[f.d];
+    if (ny < 0) ny += N * 250;
+	if (nx < 0) nx += N * 250;
+	if (ny> N) ny %= N;
+	if (nx> N) nx %= N;
+	if (ny==0) ny = N;
+	if (nx==0) nx = N;
 
     board[ny][nx].push_back(f);
 }
