@@ -10,24 +10,6 @@ vector<int> a;
 vector<int> b;
 int n;
 int ans = 0;
-void bt(int depth, int sum)
-{
-    if (depth == n)
-    {
-        ans = std::max(ans, sum);
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        if (isUsed[i] == false)
-        {
-            isUsed[i] = true;
-            b[depth] = a[i];
-            bt(depth+1, sum + abs(b[depth-1] - b[depth]));
-            isUsed[i] = false;
-        }
-    }
-}
 
 int main()
 {
@@ -42,14 +24,17 @@ int main()
         cin >> a[i];
     }
 
-    for (int i = 0; i < n; i++)
+    sort(a.begin(), a.end());
+    do 
     {
-        isUsed[i] = true;
-        b[0] = a[i];
-        bt(1, 0);
-        isUsed[i] = false;
+        int sum = 0;
+        for (int i = 1; i < n; i++)
+        {
+            sum += abs(a[i-1] - a[i]);
+        }
+        ans = std::max(ans, sum);
     }
-
+    while (next_permutation(a.begin(), a.end()));
     cout << ans << endl;
 
     return 0;
