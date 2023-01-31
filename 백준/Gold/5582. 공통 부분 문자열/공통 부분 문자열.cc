@@ -12,28 +12,18 @@ int main()
 
     string a, b;
     cin >> a >> b;
-    if (a.size() > b.size())
-    {
-        ::swap(a, b);
-    }
     int n = a.size();
     int m = b.size();
-    vector<int> dp(n, 0);
+    vector<vector<int>> dp(n+1, vector<int>(m+1, 0));
     int ans = 0;
-    int start = 0; 
-    int end = 0;
-
-    while (end < a.size())
+    for (int i = 1; i <= n; i++)
     {
-        string tmp = a.substr(start, end - start + 1);
-        if (b.find(tmp) != -1)
+        for (int j = 1; j <= m; j++)
         {
-            ans = std::max(ans, end - start + 1);
-            end++;
-        }
-        else
-        {
-            start++;
+            if (a[i-1] == b[j-1])
+                dp[i][j] = dp[i-1][j-1] + 1;
+            if (dp[i][j] > ans)
+                ans = dp[i][j];
         }
     }
 
