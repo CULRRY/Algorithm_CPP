@@ -13,9 +13,8 @@ int main()
 
     int n, k;
     cin >> n >> k;
-    vector<vector<int>> adj(n+1, vector<int>(n+1, 0));
+    vector<vector<int>> adj(n + 1, vector<int>(n + 1, 0));
 
-    
     for (int i = 0; i < k; i++)
     {
         int s, e;
@@ -24,14 +23,16 @@ int main()
         adj[s][e] = 1;
     }
 
-    vector<vector<int>> floyd(n+1, vector<int>(n+1, INF));
+    vector<vector<int>> floyd(n + 1, vector<int>(n + 1, INF));
 
-    for (int i =1; i <= n; i++)
+    for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= n; j++)
         {
-            if (i == j) floyd[i][j] = 0;
-            else if (adj[i][j]) floyd[i][j] = adj[i][j];
+            if (i == j)
+                floyd[i][j] = 0;
+            else if (adj[i][j])
+                floyd[i][j] = adj[i][j];
         }
     }
 
@@ -60,10 +61,9 @@ int main()
             cout << 1;
         else
             cout << 0;
-        
+
         cout << endl;
     }
-    
 
     return 0;
 }
