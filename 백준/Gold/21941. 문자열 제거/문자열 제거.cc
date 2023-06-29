@@ -16,8 +16,10 @@ string s;
 vector<Delete> x;
 int dp(int idx)
 {
-    if (DP[idx] != 0) return DP[idx];
-    if (idx >= s.size()) return 0;
+    if (DP[idx] != 0)
+        return DP[idx];
+    if (idx >= s.size())
+        return 0;
     int ret = 0;
 
     for (Delete d : x)
@@ -26,7 +28,7 @@ int dp(int idx)
             ret = std::max(ret, dp(idx + d.s.size()) + d.score);
     }
 
-    ret = std::max(ret, dp(idx+1) + 1);
+    ret = std::max(ret, dp(idx + 1) + 1);
 
     return DP[idx] = ret;
 }
@@ -35,7 +37,6 @@ int main()
 {
     FASTIO;
 
-
     cin >> s;
 
     int m;
@@ -43,13 +44,10 @@ int main()
 
     x.resize(m);
 
-    for (auto& i : x)
+    for (auto &i : x)
         cin >> i.s >> i.score;
-    
 
     cout << dp(0);
-
-    
 
     return 0;
 }
